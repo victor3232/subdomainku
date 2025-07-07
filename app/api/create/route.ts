@@ -1,6 +1,6 @@
 
 import { NextRequest } from 'next/server';
-import { createSubdomain } from '@/lib/cloudflare';
+import { createSubdomain } from '../../../../lib/cloudflare';
 
 export async function POST(req: NextRequest) {
   const { subdomain, ip, domain } = await req.json();
