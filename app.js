@@ -220,9 +220,20 @@ bot.on('callback_query', async (query) => {
     const data = query.data;
 
     if (['create', 'hapus', 'ubahip', 'listsub'].includes(data)) {
-        userState[userId] = { step: data };
-        return bot.sendMessage(chatId, '📡 Pilih domain yang ingin digunakan:', generateDomainButtons(data));
+    const isPremium = premiumUsers.includes(String(userId));
+    if (!isPremium) {
+        return bot.sendMessage(chatId, '❌ Fitur ini hanya untuk *pengguna Premium*.', {
+            parse_mode: 'Markdown',
+            reply_markup: {
+                inline_keyboard: [[{ text: '💬 HUBUNGI ADMIN', url: 'https://t.me/kibiljoe' }]]
+            }
+        });
     }
+
+    userState[userId] = { step: data };
+    return bot.sendMessage(chatId, '📡 Pilih domain yang ingin digunakan:', generateDomainButtons(data));
+}
+
 
     const [action, zoneId] = data.split(':');
     if (!zones[zoneId]) return bot.sendMessage(chatId, '❗ Domain tidak ditemukan.');
