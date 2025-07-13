@@ -157,6 +157,62 @@ bot.onText(/\/start/, async (msg) => {
     bot.sendMessage(chatId, welcomeText, keyboard);
 });
 
+bot.onText(/\/addprem (\d+)/, (msg, match) => {
+    const chatId = msg.chat.id;
+    const senderId = msg.from.id;
+
+    if (String(senderId) !== String(owner)) {
+        return bot.sendMessage(chatId, '❌ Hanya admin yang bisa menggunakan perintah ini.');
+    }
+
+    const userIdToAdd = match[1];
+
+    if (premiumUsers.includes(userIdToAdd)) {
+        return bot.sendMessage(chatId, `⚠️ User ID \`${userIdToAdd}\` sudah premium.`, { parse_mode: 'Markdown' });
+    }
+
+    premiumUsers.push(userIdToAdd);
+    fs.writeFileSync(premiumUsersFile, JSON.stringify(premiumUsers, null, 2));
+    bot.sendMessage(chatId, `✅ User ID \`${userIdToAdd}\` berhasil ditambahkan sebagai *Premium*.`, { parse_mode: 'Markdown' });
+});
+
+bot.onText(/\/delprem (\d+)/, (msg, match) => {
+    const chatId = msg.chat.id;
+    const senderId = msg.from.id;
+
+    if (String(senderId) !== String(owner)) {
+        return bot.sendMessage(chatId, '❌ Hanya admin yang bisa menggunakan perintah ini.');
+    }
+
+    const userIdToRemove = match[1];
+
+    if (!premiumUsers.includes(userIdToRemove)) {
+        return bot.sendMessage(chatId, `⚠️ User ID \`${userIdToRemove}\` tidak ditemukan di daftar premium.`, { parse_mode: 'Markdown' });
+    }
+
+    premiumUsers = premiumUsers.filter(id => id !== userIdToRemove);
+    fs.writeFileSync(premiumUsersFile, JSON.stringify(premiumUsers, null, 2));
+    bot.sendMessage(chatId, `✅ User ID \`${userIdToRemove}\` berhasil dihapus dari *Premium*.`, { parse_mode: 'Markdown' });
+});
+
+bot.onText(/\/listprem/, (msg) => {
+    const chatId = msg.chat.id;
+    const senderId = msg.from.id;
+
+    if (String(senderId) !== String(owner)) {
+        return bot.sendMessage(chatId, '❌ Hanya admin yang bisa melihat daftar Premium.');
+    }
+
+    if (premiumUsers.length === 0) {
+        return bot.sendMessage(chatId, '📭 Tidak ada user yang terdaftar sebagai Premium.');
+    }
+
+    const list = premiumUsers.map((id, index) => `${index + 1}. \`${id}\``).join('\n');
+    bot.sendMessage(chatId, `📋 *Daftar Premium Users:*\n\n${list}`, {
+        parse_mode: 'Markdown'
+    });
+});
+
 // CALLBACK QUERY (domain selection)
 bot.on('callback_query', async (query) => {
     const chatId = query.message.chat.id;
