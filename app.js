@@ -281,7 +281,9 @@ bot.on('callback_query', async (query) => {
 bot.on('message', async (msg) => {
     const userId = msg.from.id;
     const chatId = msg.chat.id;
-    const text = msg.text.trim();
+    const text = msg.text ? msg.text.trim() : "";
+  if (!text) return; // lewati jika bukan pesan teks
+
 
     if (!userState[userId] || text.startsWith('/')) return;
 
