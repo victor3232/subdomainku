@@ -1,5 +1,7 @@
 const TelegramBot = require('node-telegram-bot-api');
 const fs = require('fs');
+const express = require('express');
+const app = express();
 const axios = require('axios');
 
 // Fungsi untuk escape karakter MarkdownV2 agar tidak error parsing
@@ -336,8 +338,6 @@ bot.on('message', async (msg) => {
     delete userState[userId]; // reset setelah satu input
 });
 
-const express = require('express');
-const app = express();
 
 // Root endpoint untuk UptimeRobot
 app.get('/', (req, res) => {
