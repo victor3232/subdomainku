@@ -335,3 +335,16 @@ bot.on('message', async (msg) => {
 
     delete userState[userId]; // reset setelah satu input
 });
+
+const express = require('express');
+const app = express();
+
+app.get('/', (req, res) => {
+  res.send('Bot is running!');
+});
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Express server berjalan di port ${PORT}`);
+});
+
