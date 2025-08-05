@@ -339,12 +339,24 @@ bot.on('message', async (msg) => {
 const express = require('express');
 const app = express();
 
+// Root endpoint untuk UptimeRobot
 app.get('/', (req, res) => {
   res.send('Bot is running!');
 });
 
-const PORT = process.env.PORT || 3000;
+// Endpoint khusus ping
+app.get('/ping', (req, res) => {
+  res.status(200).send('Pong!');
+});
+
+// Port wajib 8080 untuk Replit
+const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
-  console.log(`Express server berjalan di port ${PORT}`);
+  console.log(`Server berjalan di port ${PORT}`);
+});
+
+// Handle error tak terduga
+process.on('uncaughtException', (err) => {
+  console.error('Error:', err);
 });
 
