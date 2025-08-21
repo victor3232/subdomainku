@@ -198,6 +198,29 @@ bot.onText(/\/delprem (\d+)/, (msg, match) => {
     bot.sendMessage(chatId, `✅ User ID \`${userIdToRemove}\` berhasil dihapus dari *Premium*.`, { parse_mode: 'Markdown' });
 });
 
+bot.onText(/^\/(broadcast|bc) (.+)/, async (msg, match) => {
+  const ownerId = "1835508209"; // Sesuaikan
+  const chatId = msg.chat.id;
+  const message = match[2];
+
+  if (chatId.toString() !== ownerId) return;
+
+  let success = 0;
+  let failed = 0;
+
+  for (let id of premiumUsers) {
+    try {
+      await bot.sendMessage(id, message);
+      success++;
+    } catch (e) {
+      console.log(`Gagal kirim ke ${id}`);
+      failed++;
+    }
+  }
+
+  bot.sendMessage(chatId, `✅ Broadcast selesai!\nBerhasil: ${success}\nGagal: ${failed}`);
+});
+
 bot.onText(/\/listprem/, (msg) => {
     const chatId = msg.chat.id;
     const senderId = msg.from.id;
