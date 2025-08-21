@@ -25,7 +25,7 @@ const bot = new TelegramBot(Token, { polling: true });
 const zones = {
     '95e7efc33f0a9339216b28ff2c2bce19': 'hitsssh.web.id',
     '4ba67e22b32facc02df23ba9d7c87906': '404-eror.systems',
-    '4ba67e22b32facc02df23ba9d7c88826': 'panel-bot.web.id',
+    '75bcb44b99f8828c067cc351c41519b5': 'cjdw.me',
     '13805e8d3a62151955b7a26debc88c33': 'cjdw.tech',
     'b66b7c7ff46762f0dbb1429d3f6d247f': 'slankers.web.id'
 };
@@ -33,6 +33,7 @@ const zones = {
 const apiTokens = {
     '95e7efc33f0a9339216b28ff2c2bce19': 'Kv3ypXTX_oKfTLyzdK0i_1r2b1Qg2thR9WBOU1P7',
     '4ba67e22b32facc02df23ba9d7c87906': 'WcEyJrhTEfWIaAQ6MjT0tAZSgg2UIdCUYI0pAEAX',
+  '75bcb44b99f8828c067cc351c41519b5' : 'sjTpIPYFr42HthmcgrMwVvsXnJ7JD6kJnZNikHYA',
     '13805e8d3a62151955b7a26debc88c33': 'WcEyJrhTEfWIaAQ6MjT0tAZSgg2UIdCUYI0pAEAX',
     'b66b7c7ff46762f0dbb1429d3f6d247f': 'WcEyJrhTEfWIaAQ6MjT0tAZSgg2UIdCUYI0pAEAX'
 };
