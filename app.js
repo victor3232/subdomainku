@@ -26,6 +26,8 @@ const zones = {
     '95e7efc33f0a9339216b28ff2c2bce19': 'hitsssh.web.id',
     '4ba67e22b32facc02df23ba9d7c87906': '404-eror.systems',
     '75bcb44b99f8828c067cc351c41519b5': 'cjdw.me',
+  'ea4a4028d893149fda5bd28b270de74d' : 'hitsssh.works',
+  '3dabfe4f2f4fbec6157a673e54a25891' : 'kibiljoe.engineer',
     '13805e8d3a62151955b7a26debc88c33': 'cjdw.tech',
     'b66b7c7ff46762f0dbb1429d3f6d247f': 'slankers.web.id'
 };
@@ -34,6 +36,8 @@ const apiTokens = {
     '95e7efc33f0a9339216b28ff2c2bce19': 'Kv3ypXTX_oKfTLyzdK0i_1r2b1Qg2thR9WBOU1P7',
     '4ba67e22b32facc02df23ba9d7c87906': 'WcEyJrhTEfWIaAQ6MjT0tAZSgg2UIdCUYI0pAEAX',
   '75bcb44b99f8828c067cc351c41519b5' : 'sjTpIPYFr42HthmcgrMwVvsXnJ7JD6kJnZNikHYA',
+  'ea4a4028d893149fda5bd28b270de74d' : '31myyOZw4gvuY6LQxcCZVIN7bJqM7TDCPEyF8Ws-',
+  '3dabfe4f2f4fbec6157a673e54a25891' : '31myyOZw4gvuY6LQxcCZVIN7bJqM7TDCPEyF8Ws-',
     '13805e8d3a62151955b7a26debc88c33': 'WcEyJrhTEfWIaAQ6MjT0tAZSgg2UIdCUYI0pAEAX',
     'b66b7c7ff46762f0dbb1429d3f6d247f': 'WcEyJrhTEfWIaAQ6MjT0tAZSgg2UIdCUYI0pAEAX'
 };
