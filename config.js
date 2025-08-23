@@ -18,10 +18,10 @@ Thanks To :
 */
 
 const config = {
-  token: '7242761420:AAHmM1q-Ai38zaPQiVdg0_0I7DizdQ6YGso',
+  token: '8498574369:AAFn9zSGPODgNBr-n3UgaSO_GV9y4z_eAiA',
   adminId: '1835508209',
-  pp: 'https://telegra.ph/file/8ef2d072f8c68f120d18d.jpg',
-  ppp: 'https://telegra.ph/file/8ef2d072f8c68f120d18d.jpg',
+  pp: 'https://telegra.ph/file/8ef2d072f8c68l120d18d.jpg',
+  ppp: 'https://telegra.ph/file/8ef2d07268f120d18d.jpg',
 };
 
 module.exports = config;
