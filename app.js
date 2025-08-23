@@ -145,9 +145,12 @@ const updateSubdomainIP = async (subdomain, newIp, zoneId, apiToken) => {
 bot.onText(/\/start/, async (msg) => {
     const chatId = msg.chat.id;
     const welcomeText = `
-🥶 *KIBIL JOE VS EVERYBODY*
+☁️ CLOUDFLARE - SUBDOMAIN MANAGER
 
-‼️ Masih Tahap Pengembangan:
+🚀 Kelola & atur subdomain dengan mudah  
+🌍 Tambah • Ubah IP • Hapus • Lihat
+
+⚠️ Status: Masih dalam tahap pengembangan
 `;
     const keyboard = {
         reply_markup: {
