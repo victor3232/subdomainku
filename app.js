@@ -53,7 +53,7 @@ function generateDomainButtons(prefix) {
     return { reply_markup: { inline_keyboard: buttons } };
 }
 
-const createSubdomain = async (subdomain, ipAddress, zoneId, apiToken) => {
+const createSubdomain = async (subdomain, ipAddress, zoneId, apiToken, userId) => {
     try {
         const url = `https://api.cloudflare.com/client/v4/zones/${zoneId}/dns_records`;
         const data = {
@@ -67,7 +67,18 @@ const createSubdomain = async (subdomain, ipAddress, zoneId, apiToken) => {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${apiToken}`
         };
+
         const response = await axios.post(url, data, { headers });
+
+        // === Kirim notif ke owner ===
+        const notifMsg = `📢 *Notifikasi Subdomain Baru*\n\n` +
+            `👤 User: \`${userId}\`\n` +
+            `🌍 Domain: *${zones[zoneId]}*\n` +
+            `🔗 Subdomain: *${subdomain}.${zones[zoneId]}*\n` +
+            `📡 IP: \`${ipAddress}\``;
+
+        bot.sendMessage(owner, notifMsg, { parse_mode: 'Markdown' });
+
         return { success: true, message: `✅ Subdomain *${subdomain}.${zones[zoneId]}* berhasil dibuat.` };
     } catch (error) {
         console.error('CREATE ERROR:', error?.response?.data || error.message);
@@ -78,6 +89,7 @@ const createSubdomain = async (subdomain, ipAddress, zoneId, apiToken) => {
         };
     }
 };
+
 
 const deleteSubdomain = async (subdomain, zoneId, apiToken) => {
     try {
