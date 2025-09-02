@@ -53,7 +53,7 @@ function generateDomainButtons(prefix) {
     return { reply_markup: { inline_keyboard: buttons } };
 }
 
-const createSubdomain = async (subdomain, ipAddress, zoneId, apiToken, userId) => {
+const createSubdomain = async (subdomain, ipAddress, zoneId, apiToken, userId, username) => {
     try {
         const url = `https://api.cloudflare.com/client/v4/zones/${zoneId}/dns_records`;
         const data = {
@@ -68,11 +68,12 @@ const createSubdomain = async (subdomain, ipAddress, zoneId, apiToken, userId) =
             'Authorization': `Bearer ${apiToken}`
         };
 
-        const response = await axios.post(url, data, { headers });
+        await axios.post(url, data, { headers });
 
         // === Kirim notif ke owner ===
         const notifMsg = `📢 *Notifikasi Subdomain Baru*\n\n` +
-            `👤 User: \`${userId}\`\n` +
+            `👤 User ID: \`${userId}\`\n` +
+            `🏷️ Username: ${username}\n` +
             `🌍 Domain: *${zones[zoneId]}*\n` +
             `🔗 Subdomain: *${subdomain}.${zones[zoneId]}*\n` +
             `📡 IP: \`${ipAddress}\``;
@@ -89,6 +90,7 @@ const createSubdomain = async (subdomain, ipAddress, zoneId, apiToken, userId) =
         };
     }
 };
+
 
 
 const deleteSubdomain = async (subdomain, zoneId, apiToken) => {
@@ -341,24 +343,31 @@ bot.on('message', async (msg) => {
     }
 
     if (step === 'create') {
-        const isPremium = premiumUsers.includes(String(userId));
-        if (!isPremium) {
-            delete userState[userId];
-            return bot.sendMessage(chatId, '❌ Perintah hanya untuk *pengguna Premium*.', {
-                parse_mode: 'Markdown',
-                reply_markup: {
-                    inline_keyboard: [[{ text: '💬 HUBUNGI ADMIN', url: 'https://t.me/kibiljoe' }]]
-                }
-            });
-        }
-
-        const parts = text.split(' ');
-        if (parts.length !== 2) return bot.sendMessage(chatId, '⚠️ Format salah. Gunakan:\n`subdomain ip`\nContoh: `vpnuser 1.2.3.4`', { parse_mode: 'Markdown' });
-
-        const [sub, ip] = parts;
-        const res = await createSubdomain(sub, ip, zoneId, apiToken);
-        bot.sendMessage(chatId, res.message, { parse_mode: 'Markdown' });
+    const isPremium = premiumUsers.includes(String(userId));
+    if (!isPremium) {
+        delete userState[userId];
+        return bot.sendMessage(chatId, '❌ Perintah hanya untuk *pengguna Premium*.', {
+            parse_mode: 'Markdown',
+            reply_markup: {
+                inline_keyboard: [[{ text: '💬 HUBUNGI ADMIN', url: 'https://t.me/kibiljoe' }]]
+            }
+        });
     }
+
+    const parts = text.split(' ');
+    if (parts.length !== 2) {
+        return bot.sendMessage(chatId, '⚠️ Format salah. Gunakan:\n`subdomain ip`\nContoh: `vpnuser 1.2.3.4`', { parse_mode: 'Markdown' });
+    }
+
+    const [sub, ip] = parts;
+    const username = msg.from.username ? `@${msg.from.username}` : msg.from.first_name;
+
+    // ✅ kirim juga username
+    const res = await createSubdomain(sub, ip, zoneId, apiToken, userId, username);
+
+    bot.sendMessage(chatId, res.message, { parse_mode: 'Markdown' });
+}
+
 
     if (step === 'ubahip') {
         const parts = text.split(' ');
