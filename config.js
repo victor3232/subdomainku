@@ -18,7 +18,7 @@ Thanks To :
 */
 
 const config = {
-  token: '7600345211:AAGhNU9R1QJtdSTn5d7EYkY-gugC6PozgLQ',
+  token: '8498574369:AAFn9zSGPODgNBr-n3UgaSO_GV9y4z_eAiA',
   adminId: '1835508209',
 
   // === PERBAIKAN DI SINI ===
